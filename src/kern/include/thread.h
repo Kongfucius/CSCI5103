@@ -105,6 +105,8 @@ struct thread {
 	 * Public fields
 	 */
 
+	unsigned t_priority;
+
 	/* add more here as needed */
 };
 
@@ -141,6 +143,10 @@ void thread_shutdown(void);
  * disappear at any time without notice.
  */
 int thread_fork(const char *name, struct proc *proc,
+                void (*func)(void *, unsigned long),
+                void *data1, unsigned long data2);
+
+int thread_fork_priority(const char *name, unsigned prioirty, struct proc *proc,
                 void (*func)(void *, unsigned long),
                 void *data1, unsigned long data2);
 

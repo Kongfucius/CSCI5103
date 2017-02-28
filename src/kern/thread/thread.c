@@ -919,9 +919,19 @@ schedule(void)
 	spl = splhigh();
 	spinlock_acquire(&curcpu->c_runqueue_lock);
 
-
 	// sort schedule based on the priority
+	struct threadlist *runQ;
+	runQ = &curcpu->c_runqueue_lock; 
+	
+	// check to see if we even need to sort
+	if (runQ->tl_count <= 1)
+		return;
 
+	struct threadlistnode *current, *next, *temp;
+	temp = NULL:
+	current = runQ->tl_head;
+	next = current->tln_next;
+	
 
 
 	/* Release the lock and reenable interrupts */
